@@ -80,13 +80,10 @@ for line in fp:
 		else:
 			perror("Wrong format for data!")
 		pass
-	elif elements[0] == "r":
-		# Get the range of the plot
-		if len(elements) != 3:
-			perror("")
-		pass
+	elif elements[0] == "min":
 		pStart = float(elements[1])
-		pEnd = float(elements[2])
+	elif elements[0] == "max":
+		pEnd = float(elements[1])
 	elif elements[0] == "Y":
 		# Get the Y description
 		Ydes = " ".join(elements[1:len(elements)])
@@ -96,8 +93,8 @@ for line in fp:
 	elif elements[0] == "Xi":
 		# Get the X interval
 		Xi = float(elements[1])
-		if Xi < 0.5:
-			Xi = 0.5
+		if Xi < 0.1:
+			Xi = 0.1
 	elif elements[0] == "title":
 		title = " ".join(elements[1:len(elements)])
 	pass
@@ -129,15 +126,20 @@ if title is not None:
 plt.gca().axes.get_yaxis().set_ticks([])
 
 # Calculate x ticks
-xt = list(arange(pStart, pEnd, Xi))
+xt = list(arange(pStart, pEnd + Xi, Xi))
 plt.gca().axes.get_xaxis().set_ticks(xt)
 l = plt.gca().axes.get_xticklabels()
 newTickLabel = []
 for val in xt:
-	if val - float(int(val)) != 0.0:
+	delta = abs(val - float(int(val)))
+	if delta > 0.01 and delta < 0.99:
 		newTickLabel.append("")
 	else:
-		newTickLabel.append("{:d}".format(int(val)))
+		if delta > 0.99:
+			newTickLabel.append("{:d}".format(int(val) + 1))
+		else:
+			newTickLabel.append("{:d}".format(int(val) + 0))
+		pass
 	pass
 pass
 plt.gca().axes.set_xticklabels(newTickLabel)
