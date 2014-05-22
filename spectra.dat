@@ -1,0 +1,30 @@
+# gaussian FWHM
+w 0.15
+
+# interval
+i 0.001
+
+# gaussian centers and relative strength
+e 4.0   1.0
+e 4.8   1.0
+e 5.0   1.0
+e 5.05  0.5
+e 5.1   0.5
+e 6.0   1.0
+e 7.0   2.0
+
+# simulation range
+min 0.0
+max 9.0
+
+# X axis description
+X Energy (eV)
+
+# Y axis description
+Y Relative Strength
+
+# X axis interval (minimum is 0.5)
+Xi 0.25
+
+# Title
+title Simulation Graph
