@@ -113,6 +113,12 @@ x, y = mixGaussian(array(centers), array(heights), pStart, pEnd, interval, width
 
 plt.plot(x, y)
 
+outfile = open("simulation.txt", "w")
+for i in range(x.shape[0]):
+    outfile.write("{:f} {:f}\n".format(x[i], y[i]))
+pass
+outfile.close()
+
 if Ydes is not None:
 	plt.ylabel(Ydes, fontsize=16)
 
